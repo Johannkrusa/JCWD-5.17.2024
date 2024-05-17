@@ -58,14 +58,18 @@ let result = 0;
 }
 
 
-const str = "MMXIV";
+var str = "MMXIV";
 console.log(romanToInt(str)); // Output: 14
 
 // query 3
 // pascal triangle
 // Input: numRows = 5
-// Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
-
+// Output: 
+//         [[1]            [[0] // 
+//        ,[1,1]          ,[0,1]
+//       ,[1,2,1]        ,[0,1,2]   n = n[j-1]+ n[j] 
+//      ,[1,3,3,1]      ,[0,1,2,3]
+///    ,[1,4,6,4,1]]   ,[0,1,2,3,4]]  
 
 function pascalTriangle(n){
     result = []
@@ -119,7 +123,7 @@ function maxProfit(nums){
             }
         }
     }
-    return tempArr[0];
+    return maxProfit;
 }
 
 
@@ -147,3 +151,60 @@ var maxProfit3 = function(prices) {
 };
 
 console.log(maxProfit3(prices));
+
+console.clear();
+
+// find word in a 2d array 
+const array2D = [
+    //0    1    2    3    4    5    6    7  
+    ['W', 'E', 'F', 'P', 'E', 'G', 'R', 'F'], // 0
+    ['Q', 'Y', 'E', 'C', 'M', 'T', 'I', 'E'], // 1
+    ['Y', 'B', 'A', 'S', 'T', 'F', 'N', 'I'], // 2
+    ['T', 'O', 'M', 'I', 'B', 'H', 'F', 'W'], // 3
+    ['M', 'Q', 'X', 'R', 'E', 'O', 'R', 'V'], // 4
+    ['H', 'L', 'T', 'Y', 'S', 'J', 'G', 'M'], // 5 
+    ['T', 'U', 'L', 'F', 'T', 'X', 'D', 'Z'], // 6
+    ['E', 'S', 'S', 'R', 'M', 'U', 'A', 'Z']  // 7 
+];
+
+var str = "BEST"
+function searchWord(array2D, str){
+    str = str.toUpperCase();
+    for(var col = 0; col < array2D.length; col++){
+        for (var row = 0; row < array2D[0].length; row++){ 
+            if(array2D[col][row] == str[0]){
+                isFound = checkWord(array2D, str, col, row)
+                if(isFound){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+function checkWord(array2D, str, col, row){
+    isTrue = true;
+    let j = 0;
+    // horizontal check
+    for(let i = row; i<= str.length; i++){
+        if(array2D[col][i] !== str[j]){
+            return false;
+        }
+        j++;
+    }
+   
+    // vertical check
+    j = 0;
+    for(let i = col; i<= str.length; i++){
+        if(array2D[i][row] !== str[j]){
+            return false;
+        }
+        j++;
+    }
+
+    return true;
+}
+
+
+console.log(searchWord(array2D, str));
